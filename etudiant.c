@@ -142,14 +142,28 @@ Region saisirRegion() {
 // Fonction d'enregistrement d'un étudiant
 
 void enregistrerEtudiant(Etudiant etudiants[], int *index, int max) {
-    if (*index >= max) {
-        printf("Capacité maximale atteinte!\n");
+   
+   // Vérifier combien d'étudiants peuvent encore être enregistrés
+    int placesRestantes = max - *index;
+    
+    if (placesRestantes == 0) {
+       
+        printf("  TOUS LES ETUDIANTS ONT ETE ENREGISTRES!\n");
+        printf("  Vous avez atteint le nombre maximum: %d\n", max);
+        
         return;
     }
+   
+ // Afficher combien il reste d'étudiants à enregistrer
     
-    Etudiant *e = &etudiants[*index];
+    printf("  ENREGISTREMENT DES ETUDIANTS\n");
+    printf("  Il reste %d etudiant(s) a enregistrer\n", placesRestantes);
     
-    printf("\n=== ENREGISTREMENT ETUDIANT ===\n");
+    while (*index < max) {
+        printf("\n--- ETUDIANT %d/%d ---\n", *index + 1, max);
+        
+        Etudiant *e = &etudiants[*index];
+
     
     // Matricule
     printf("Matricule: ");
@@ -184,7 +198,29 @@ void enregistrerEtudiant(Etudiant etudiants[], int *index, int max) {
     e->region = saisirRegion();
     
     (*index)++;
-    printf("✅ Étudiant enregistré!\n");
+    printf("\n Etudiant %d/%d enregistre avec succes!\n", *index, max);
+
+     // Vérifier s'il reste des étudiants à enregistrer
+        placesRestantes = max - *index;
+        if (placesRestantes > 0) {
+            printf("\nIl reste encore %d etudiant(s) a enregistrer.\n", placesRestantes);
+            printf("Voulez-vous continuer maintenant ? (o pour OUI, n pour NON) : ");
+            
+            char continuer;
+            scanf(" %c", &continuer);
+            viderBuffer();
+            
+            if (continuer == 'n' || continuer == 'N') {
+                printf("\nEnregistrement interrompu. Vous pourrez reprendre plus tard.\n");
+                printf("Etudiants enregistres: %d/%d\n", *index, max);
+                break;
+            }
+        } else {
+            printf("  FELICITATIONS !\n");
+            printf("  Tous les %d etudiants ont ete enregistres!\n", max);
+            
+        }
+    }
 }
 
 // Afficher un étudiant
@@ -264,8 +300,32 @@ int calculerAge(Date date_naissance) {
 // Les autres fonctions (à implémenter par le groupe)
 void supprimerEtudiant(Etudiant etudiants[], int *nbEtudiants, char matricule[]) {
     
-    printf("Fonction supprimerEtudiant - A implementer\n");
+    int index = rechercherParMatricule(etudiants, *nbEtudiants, matricule);
+    
+    if (index == -1) {
+        printf("Etudiant non trouvé!\n");
+        return;
+    }
+    
+    printf("\nSUPPRESSION DE L'ETUDIANT:\n");
+    printf("Nom: %s %s\n", etudiants[index].nom, etudiants[index].prenom);
+    
+    printf("Confirmer (O/N)? ");
+    char confirmation;
+    scanf(" %c", &confirmation);
+    viderBuffer();
+    
+    if (toupper(confirmation) == 'O') {
+        for (int i = index; i < *nbEtudiants - 1; i++) {
+            etudiants[i] = etudiants[i + 1];
+        }
+        (*nbEtudiants)--;
+        printf("etudiant supprime!\n");
+    } else {
+        printf("Suppression annulee.\n");
+    }
 }
+
 
 void trierAlphabetique(Etudiant etudiants[], int nbEtudiants) {
    
@@ -282,6 +342,6 @@ void trierParFiliere(Etudiant etudiants[], int nbEtudiants) {
     
     printf("Fonction trierParFiliere - A implementer\n");
 }
-// Rechercher par matricule
+
 
 

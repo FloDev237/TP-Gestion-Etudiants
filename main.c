@@ -22,8 +22,10 @@ int main() {
     } while (nbEtudiantsMax <= 0 || nbEtudiantsMax > MAX_ETUDIANTS);
     
     printf("\n Preparation d'un tableau pour %d etudiants...\n", nbEtudiantsMax);
+    printf("  Vous devrez enregistrer tous les etudiants\n");
+    printf("  avant de pouvoir utiliser les autres fonctions\n");
 
-     Etudiant etudiants[MAX_ETUDIANTS];
+    Etudiant etudiants[MAX_ETUDIANTS];
     int nbEtudiantsActuels = 0;
 
     int choix;
@@ -41,7 +43,8 @@ int main() {
                 
             case 2: // Modifier
                 if (nbEtudiantsActuels == 0) {
-                    printf("Aucun etudiant a modifier !\n");
+                    printf(" Vous devez d'abord enregistrer des etudiants !\n");
+                    printf("Utilisez l'option 1 pour commencer.\n");
                 } else {
                     char matricule[MAX_MATRICULE];
                     printf("Entrez le matricule de l'etudiant a modifier : ");
