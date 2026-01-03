@@ -28,11 +28,11 @@ typedef enum {
 
 // Énumération pour la filière
 typedef enum {
-    DATA_SCIENCE,
     CRYPTOGRAPHIE_SECURITE,
+    DATA_SCIENCE,
+    GENIE_LOGICIEL,
     RESEAU_TELECOM,
-    ROBOTIQUE,
-    GENIE_LOGICIEL
+    ROBOTIQUE_ET_SYSTEMES_EMBARQUES
 } Filiere;
 
 // Énumération pour la région

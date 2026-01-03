@@ -32,43 +32,47 @@ void viderBuffer() {
 // Afficher un enum Sexe
 void afficherSexe(Sexe s) {
     switch(s) {
-        case MASCULIN: printf("Masculin"); break;
-        case FEMININ: printf("Féminin"); break;
+        case MASCULIN:
+          printf("Masculin\t"); break;
+        case FEMININ:
+          printf("Feminin\t"); break;
     }
 }
 
 // Afficher un enum Département
 void afficherDepartement(Departement d) {
     switch(d) {
-        case INFOTEL: printf("INFOTEL"); break;
-        case GENIE_CIVIL: printf("Genie Civil"); break;
+        case INFOTEL: printf("INFOTEL\t"); break;
+        case GENIE_CIVIL: printf("Genie Civil\t"); break;
     }
 }
 
 // Afficher un enum Filière
 void afficherFiliere(Filiere f) {
     switch(f) {
-        case DATA_SCIENCE: printf("Data Science"); break;
-        case CRYPTOGRAPHIE_SECURITE: printf("Cryptographie et Sécurité"); break;
-        case RESEAU_TELECOM: printf("Réseau et Télécom"); break;
-        case ROBOTIQUE: printf("Robotique"); break;
-        case GENIE_LOGICIEL: printf("Génie Logiciel"); break;
+        case DATA_SCIENCE: printf("Data Science\t"); break;
+        case CRYPTOGRAPHIE_SECURITE:
+          printf("Cryptographie et Securite\t");
+          break;
+        case RESEAU_TELECOM: printf("Reseau et Telecommunication\t"); break;
+        case ROBOTIQUE_ET_SYSTEMES_EMBARQUES: printf("Robotique et systemes embarques\t");break;
+        case GENIE_LOGICIEL: printf("Genie Logiciel\t"); break;
     }
 }
 
 // Afficher un enum Région
 void afficherRegion(Region r) {
     switch(r) {
-        case EXTREME_NORD: printf("Extrême-Nord"); break;
-        case NORD: printf("Nord"); break;
-        case ADAMAOUA: printf("Adamaoua"); break;
-        case EST: printf("Est"); break;
-        case SUD: printf("Sud"); break;
-        case LITTORAL: printf("Littoral"); break;
-        case CENTRE: printf("Centre"); break;
-        case OUEST: printf("Ouest"); break;
-        case SUD_OUEST: printf("Sud-Ouest"); break;
-        case NORD_OUEST: printf("Nord-Ouest"); break;
+        case EXTREME_NORD: printf("Extreme-Nord\t"); break;
+        case NORD: printf("Nord\t"); break;
+        case ADAMAOUA: printf("Adamaoua\t"); break;
+        case EST: printf("Est\t"); break;
+        case SUD: printf("Sud\t"); break;
+        case LITTORAL: printf("Littoral\t"); break;
+        case CENTRE: printf("Centre\t"); break;
+        case OUEST: printf("Ouest\t"); break;
+        case SUD_OUEST: printf("Sud-Ouest\t"); break;
+        case NORD_OUEST: printf("Nord-Ouest\t"); break;
     }
 }
 
@@ -103,7 +107,7 @@ Filiere saisirFiliere() {
     printf("0: Data Science\n");
     printf("1: Cryptographie et Securite\n");
     printf("2: Reseau et Telecom\n");
-    printf("3: Robotique\n");
+    printf("3: Robotique et systemes embarques\n");
     printf("4: Genie Logiciel\n");
     
     do {
@@ -184,12 +188,11 @@ void enregistrerEtudiant(Etudiant etudiants[], int *index, int max) {
     e->region = saisirRegion();
     
     (*index)++;
-    printf("✅ Étudiant enregistré!\n");
+    printf("Etudiant enregistre!\n");
 }
 
 // Afficher un étudiant
 void afficherEtudiant(Etudiant e) {
-    printf("\n=== FICHE ETUDIANT ===\n");
     printf("Matricule : %s\n", e.matricule);
     printf("Nom : %s\n", e.nom);
     printf("Prenom : %s\n", e.prenom);
@@ -198,14 +201,13 @@ void afficherEtudiant(Etudiant e) {
                                               e.date_naissance.annee);
     printf("Sexe: ");
     afficherSexe(e.sexe);
-    printf("\nDépartement: ");
+    printf("\nDepartement: ");
     afficherDepartement(e.departement);
-    printf("\nFilière: ");
+    printf("\nFiliere: ");
     afficherFiliere(e.filiere);
-    printf("\nRégion: ");
+    printf("\nRegion: ");
     afficherRegion(e.region);
-    printf("\nÂge: %d ans\n", calculerAge(e.date_naissance));
-    printf("======================\n");
+    printf("\nAge: %d ans\n", calculerAge(e.date_naissance));
 }
 
 // Afficher tous les étudiants
@@ -218,20 +220,26 @@ void afficherTousEtudiants(Etudiant etudiants[], int nbEtudiants) {
     
     printf("\n=== LISTE DES ETUDIANTS (%d) ===\n", nbEtudiants);
     for (int i = 0; i < nbEtudiants; i++) {
-        printf("%d. %s %s [%s] - ", 
+        printf("%d. [%s]    %s  %s  %02d/%02d/%d",  
                i + 1, 
+               etudiants[i].matricule,
                etudiants[i].nom, 
                etudiants[i].prenom,
-               etudiants[i].matricule);
+               etudiants[i].date_naissance.jour,
+               etudiants[i].date_naissance.mois,
+               etudiants[i].date_naissance.annee);
+                afficherRegion(etudiants[i].region);
+                afficherSexe(etudiants[i].sexe);
                 afficherFiliere(etudiants[i].filiere);
-        printf("\n");
+                afficherDepartement(etudiants[i].departement);
+                printf("\n");
     }
 
  }
 // Modifier un étudiant (avec pointeurs comme demandé)
    void modifierEtudiant(Etudiant *etudiant) {
-    printf("\n=== MODIFICATION ÉTUDIANT ===\n");
-    printf("Étudiant: %s %s\n", etudiant->nom, etudiant->prenom);
+    printf("\n=== MODIFICATION ETUDIANT ===\n");
+    printf("Etudiant: %s %s\n", etudiant->nom, etudiant->prenom);
     
     char temp[100];
     
@@ -242,7 +250,7 @@ void afficherTousEtudiants(Etudiant etudiants[], int nbEtudiants) {
         strcpy(etudiant->nom, temp);
     }
     
-    printf("Modification terminée.\n");
+    printf("Modification terminee.\n");
 }
 
 // Rechercher par matricule
@@ -278,9 +286,18 @@ int rechercherDichotomique(Etudiant etudiants[], int nbEtudiants, char nom[]) {
     return -1;
 }
 
+//Tri par filiere
 void trierParFiliere(Etudiant etudiants[], int nbEtudiants) {
-    
-    printf("Fonction trierParFiliere - A implementer\n");
+    Etudiant temp;
+    for (int i = 0; i < nbEtudiants; i++) {
+        for (int j = i; j < nbEtudiants; j++) {
+            if (etudiants[i].filiere > etudiants[j].filiere) {
+                temp = etudiants[i];
+                etudiants[i] = etudiants[j];
+                etudiants[j] = temp;
+            }
+        }
+    }
 }
 // Rechercher par matricule
 
