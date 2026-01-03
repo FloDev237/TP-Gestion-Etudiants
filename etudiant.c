@@ -269,12 +269,33 @@ void supprimerEtudiant(Etudiant etudiants[], int *nbEtudiants, char matricule[])
 
 void trierAlphabetique(Etudiant etudiants[], int nbEtudiants) {
    
-    printf("Fonction trierAlphabetique - A implementer\n");
+    int i, j;
+    Etudiant temp;
+    for (i = 0; i < nbEtudiants - 1; i++) {
+        for (j = 0; j < nbEtudiants - i - 1; j++) {
+            if (strcmp(etudiants[j].nom, etudiants[j + 1].nom) > 0) {
+                temp = etudiants[j];
+                etudiants[j] = etudiants[j + 1];
+                etudiants[j + 1] = temp;
+            }
+        }
+    }
 }
 
 int rechercherDichotomique(Etudiant etudiants[], int nbEtudiants, char nom[]) {
-    
-    printf("Fonction rechercherDichotomique - A implementer\n");
+    int gauche = 0;
+    int droite = nbEtudiants - 1;
+    while (gauche <= droite) {
+        int milieu = gauche + (droite - gauche) / 2;
+        int comparaison = strcmp(etudiants[milieu].nom, nom);
+        if (comparaison == 0) {
+            return milieu;
+        } else if (comparaison < 0) {
+            gauche = milieu + 1;
+        } else {
+            droite = milieu - 1;
+        }
+    }
     return -1;
 }
 
