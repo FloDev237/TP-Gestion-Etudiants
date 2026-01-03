@@ -94,7 +94,7 @@ int main() {
                     printf("Pas assez d'etudiants pour trier !\n");
                 } else {
                     trierAlphabetique(etudiants, nbEtudiantsActuels);
-                    printf("\n✅ Liste triée. Voici le résultat :\n");
+                    printf("\nListe triée. Voici le résultat :\n");
                     afficherTousEtudiants(etudiants, nbEtudiantsActuels);
                 }
                 break;
@@ -130,7 +130,7 @@ int main() {
                     int index = rechercherParMatricule(etudiants, nbEtudiantsActuels, matricule);
                     if (index != -1) {
                         int age = calculerAge(etudiants[index].date_naissance);
-                        printf("\n🎂 L'étudiant %s %s a %d ans\n", 
+                        printf("\n L'étudiant %s %s a %d ans\n", 
                                etudiants[index].nom, 
                                etudiants[index].prenom, 
                                age);

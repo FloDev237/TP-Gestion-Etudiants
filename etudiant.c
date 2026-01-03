@@ -257,7 +257,7 @@ int rechercherParMatricule(Etudiant etudiants[], int nbEtudiants, char matricule
 
 // Calculer l'âge
 int calculerAge(Date date_naissance) {
-    // Pour simplifier, on suppose l'année actuelle est 2025
+    
     return 2025 - date_naissance.annee;
 }
 
@@ -282,6 +282,6 @@ void trierParFiliere(Etudiant etudiants[], int nbEtudiants) {
     
     printf("Fonction trierParFiliere - A implementer\n");
 }
-// Rechercher par matricule
+
 
 
