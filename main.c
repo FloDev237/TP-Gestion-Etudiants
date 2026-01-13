@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 int main() {
+    system("chcp 65001 > nul");
     printf("..........................................\n");
     printf("  BIENVENUE SUR NOTRE APPLICATION DE      \n");
     printf("      GESTION DES ETUDIANTS               \n");
@@ -12,7 +13,7 @@ int main() {
     int nbEtudiantsMax;
     
     do {
-        printf("Combien d'etudiants voulez-vous enregistrer ? (max %d) : ", MAX_ETUDIANTS);
+        printf("Combien d'étudiants voulez-vous enregistrer ? (max %d) : ", MAX_ETUDIANTS);
         scanf("%d", &nbEtudiantsMax);
         viderBuffer();
         
@@ -21,7 +22,7 @@ int main() {
         }
     } while (nbEtudiantsMax <= 0 || nbEtudiantsMax > MAX_ETUDIANTS);
     
-    printf("\n Preparation d'un tableau pour %d etudiants...\n", nbEtudiantsMax);
+    printf("\n Préparation d'un tableau pour %d etudiants...\n", nbEtudiantsMax);
 
      Etudiant etudiants[MAX_ETUDIANTS];
     int nbEtudiantsActuels = 0;
@@ -41,10 +42,10 @@ int main() {
                 
             case 2: // Modifier
                 if (nbEtudiantsActuels == 0) {
-                    printf("Aucun etudiant a modifier !\n");
+                    printf("Aucun étudiant a modifier !\n");
                 } else {
                     char matricule[MAX_MATRICULE];
-                    printf("Entrez le matricule de l'etudiant a modifier : ");
+                    printf("Entrez le matricule de l'étudiant a modifier : ");
                     scanf("%s", matricule);
                     viderBuffer();
                     
@@ -77,10 +78,10 @@ int main() {
                 
             case 4: // Supprimer
                 if (nbEtudiantsActuels == 0) {
-                    printf("Aucun etudiant a supprimer !\n");
+                    printf("Aucun étudiant a supprimer !\n");
                 } else {
                     char matricule[MAX_MATRICULE];
-                    printf("Entrez le matricule de l'etudiant a supprimer : ");
+                    printf("Entrez le matricule de l'étudiant a supprimer : ");
                     scanf("%s", matricule);
                     viderBuffer();
                     
@@ -142,7 +143,7 @@ int main() {
                 
             case 8://TRIER PAR FILIÈRE
                 if (nbEtudiantsActuels < 2) {
-                    printf("Pas assez d'etudiants pour trier !\n");
+                    printf("Pas assez d'étudiants pour trier !\n");
                 } else {
                     trierParFiliere(etudiants, nbEtudiantsActuels);
                     printf("\nListe triee par filiere. Voici le resultat :\n");

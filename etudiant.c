@@ -4,18 +4,19 @@
 
 // Afficher le menu
 void afficherMenu() {
+    // system("chcp 65001 > nul");
     printf("\n.............................................\n");
     printf(".       MENU DE GESTION DES ETUDIANTS       .\n");
     printf(".............................................\n");
-    printf(".  1.  Enregistrer un nouvel etudiant       .\n");
+    printf(".  1.  Enregistrer un nouvel étudiant       .\n");
     printf(".  2.  Modifier les informations            .\n");
     printf(".  3.  Rechercher par matricule             .\n");
     printf(".  4.  Supprimer un etudiant                .\n");
     printf(".  5.  Trier par ordre alphabetique         .\n");
     printf(".  6.  Rechercher par dichotomique          .\n");
-    printf(".  7.  Calculer l'age d'un etudiant         .\n");
+    printf(".  7.  Calculer l'age d'un étudiant         .\n");
     printf(".  8.  Trier par filiere                    .\n");
-    printf(".  9.  Afficher la liste des etudiants      .\n");
+    printf(".  9.  Afficher la liste des étudiants      .\n");
     printf(".  0.  Quitter l'application                .\n");
     printf(".............................................\n");
 }
@@ -33,46 +34,45 @@ void viderBuffer() {
 void afficherSexe(Sexe s) {
     switch(s) {
         case MASCULIN:
-          printf("Masculin\t"); break;
+          printf("%-8s\t", "Masculin"); break;
         case FEMININ:
-          printf("Feminin\t"); break;
+          printf("%-8s\t", "Feminin"); break;
     }
 }
 
 // Afficher un enum Département
 void afficherDepartement(Departement d) {
+    // system("chcp 65001 > nul");
     switch(d) {
-        case INFOTEL: printf("INFOTEL\t"); break;
-        case GENIE_CIVIL: printf("Genie Civil\t"); break;
+        case INFOTEL: printf("%-11s\t", "INFOTEL"); break;
+        case GENIE_CIVIL: printf("%-11s\t", "Génie Civil"); break;
     }
 }
 
 // Afficher un enum Filière
 void afficherFiliere(Filiere f) {
     switch(f) {
-        case DATA_SCIENCE: printf("Data Science\t"); break;
-        case CRYPTOGRAPHIE_SECURITE:
-          printf("Cryptographie et Securite\t");
-          break;
-        case RESEAU_TELECOM: printf("Reseau et Telecommunication\t"); break;
-        case ROBOTIQUE_ET_SYSTEMES_EMBARQUES: printf("Robotique et systemes embarques\t");break;
-        case GENIE_LOGICIEL: printf("Genie Logiciel\t"); break;
+        case DATA_SCIENCE: printf("%-35s\t","Data Science"); break;
+        case CRYPTOGRAPHIE_SECURITE: printf("%-35s\t", "Cryptographie et Sécurité"); break;
+        case RESEAU_TELECOM: printf("%-35s\t","Réseau et Télécommunication"); break;
+        case ROBOTIQUE_ET_SYSTEMES_EMBARQUES: printf("%-35s\t","Robotique et systèmes embarqués");break;
+        case GENIE_LOGICIEL: printf("%-35s\t","Génie Logiciel"); break;
     }
 }
 
 // Afficher un enum Région
 void afficherRegion(Region r) {
     switch(r) {
-        case EXTREME_NORD: printf("Extreme-Nord\t"); break;
-        case NORD: printf("Nord\t"); break;
-        case ADAMAOUA: printf("Adamaoua\t"); break;
-        case EST: printf("Est\t"); break;
-        case SUD: printf("Sud\t"); break;
-        case LITTORAL: printf("Littoral\t"); break;
-        case CENTRE: printf("Centre\t"); break;
-        case OUEST: printf("Ouest\t"); break;
-        case SUD_OUEST: printf("Sud-Ouest\t"); break;
-        case NORD_OUEST: printf("Nord-Ouest\t"); break;
+        case EXTREME_NORD: printf("%-12s\t","Extreme-Nord"); break;
+        case NORD: printf("%-12s\t","Nord"); break;
+        case ADAMAOUA: printf("%-12s\t","Adamaoua"); break;
+        case EST: printf("%-12s\t","Est"); break;
+        case SUD: printf("%-12s\t","Sud"); break;
+        case LITTORAL: printf("%-12s\t","Littoral"); break;
+        case CENTRE: printf("%-12s\t","Centre"); break;
+        case OUEST: printf("%-12s\t","Ouest"); break;
+        case SUD_OUEST: printf("%-12s\t","Sud-Ouest"); break;
+        case NORD_OUEST: printf("%-12s\t","Nord-Ouest"); break;
     }
 }
 
@@ -91,9 +91,10 @@ Sexe saisirSexe() {
 }
 
 Departement saisirDepartement() {
+    // system("chcp 65001 > nul");
     int choix;
     do {
-        printf("Departement (0: INFOTEL, 1: Genie Civil): ");
+        printf("Departement (0: INFOTEL, 1: Génie Civil): ");
         scanf("%d", &choix);
         viderBuffer();
     } while (choix != 0 && choix != 1);
@@ -105,10 +106,10 @@ Filiere saisirFiliere() {
     int choix;
     printf("\n--- FILIERES ---\n");
     printf("0: Data Science\n");
-    printf("1: Cryptographie et Securite\n");
-    printf("2: Reseau et Telecom\n");
-    printf("3: Robotique et systemes embarques\n");
-    printf("4: Genie Logiciel\n");
+    printf("1: Cryptographie et Sécurité\n");
+    printf("2: Réseau et Télécommunication\n");
+    printf("3: Robotique et systemès embarqués\n");
+    printf("4: Génie Logiciel\n");
     
     do {
         printf("Votre choix (0-4): ");
@@ -142,7 +143,41 @@ Region saisirRegion() {
     return (Region)choix;
 }
 
-
+//fonction enregistrement de la date de naissance d'un etudiant
+void LireDate(Etudiant *e) {
+    Date date_naissance;
+    printf("Date de naissance (JJ MM AAAA): ");
+    scanf("%d %d %d", &date_naissance.jour, &date_naissance.mois,
+        &date_naissance.annee);
+    viderBuffer();
+  // verification de la validite de la date
+    if ((date_naissance.jour >= 1 && date_naissance.jour <= 31) &&
+      (date_naissance.mois == 1 || date_naissance.mois == 3 ||
+       date_naissance.mois == 5 || date_naissance.mois == 7 ||
+       date_naissance.mois == 8 || date_naissance.mois == 10 ||
+       date_naissance.mois == 12)) {
+        e->date_naissance.jour = date_naissance.jour;
+        e->date_naissance.mois = date_naissance.mois;
+        e->date_naissance.annee = date_naissance.annee;
+    } else if ((date_naissance.jour >= 1 && date_naissance.jour <= 30) &&
+             (date_naissance.mois == 4 || date_naissance.mois == 6 ||
+              date_naissance.mois == 9 || date_naissance.mois == 11)) {
+        e->date_naissance.jour = date_naissance.jour;
+        e->date_naissance.mois = date_naissance.mois;
+        e->date_naissance.annee = date_naissance.annee;
+    } else if ((date_naissance.jour >= 1 && date_naissance.jour <= 29) &&
+             (date_naissance.mois == 2) &&
+             ((date_naissance.annee % 400 == 0 ||
+               date_naissance.annee % 4 == 0) &&
+              (date_naissance.annee % 100 != 0))) {
+        e->date_naissance.jour = date_naissance.jour;
+        e->date_naissance.mois = date_naissance.mois;
+        e->date_naissance.annee = date_naissance.annee;
+    } else {
+        printf("Votre date de naissance n\'est pas valide, veillez entrer une nouvelle date de naissance\n");
+        LireDate(e);
+    }
+}
 // Fonction d'enregistrement d'un étudiant
 
 void enregistrerEtudiant(Etudiant etudiants[], int *index, int max) {
@@ -171,10 +206,8 @@ void enregistrerEtudiant(Etudiant etudiants[], int *index, int max) {
     e->prenom[strcspn(e->prenom, "\n")] = '\0';
     
     // Date de naissance
-    printf("Date de naissance (JJ MM AAAA): ");
-    scanf("%d %d %d", &e->date_naissance.jour, &e->date_naissance.mois, &e->date_naissance.annee);
-    viderBuffer();
-    
+    LireDate(e);
+
     // Sexe (enum)
     e->sexe = saisirSexe();
     
@@ -201,9 +234,9 @@ void afficherEtudiant(Etudiant e) {
                                               e.date_naissance.annee);
     printf("Sexe: ");
     afficherSexe(e.sexe);
-    printf("\nDepartement: ");
+    printf("\nDépartement: ");
     afficherDepartement(e.departement);
-    printf("\nFiliere: ");
+    printf("\nFilière: ");
     afficherFiliere(e.filiere);
     printf("\nRegion: ");
     afficherRegion(e.region);
@@ -219,8 +252,9 @@ void afficherTousEtudiants(Etudiant etudiants[], int nbEtudiants) {
     }
     
     printf("\n=== LISTE DES ETUDIANTS (%d) ===\n", nbEtudiants);
+    printf("%-5s %-10s\t%-30s\t%-30s\t%-10s\t%-12s\t%-8s\t%-35s\n", "Num", "Matricule", "Nom", "Prenom", "Date_Nais", "Region", "Sexe", "Filiere");
     for (int i = 0; i < nbEtudiants; i++) {
-        printf("%d. [%s]    %s  %s  %02d/%02d/%d",  
+        printf("%-3d. [%-10s]\t%-30s\t%-30s\t%02d/%02d/%d\t",  
                i + 1, 
                etudiants[i].matricule,
                etudiants[i].nom, 
@@ -231,7 +265,7 @@ void afficherTousEtudiants(Etudiant etudiants[], int nbEtudiants) {
                 afficherRegion(etudiants[i].region);
                 afficherSexe(etudiants[i].sexe);
                 afficherFiliere(etudiants[i].filiere);
-                afficherDepartement(etudiants[i].departement);
+                // afficherDepartement(etudiants[i].departement);
                 printf("\n");
     }
 
@@ -250,7 +284,7 @@ void afficherTousEtudiants(Etudiant etudiants[], int nbEtudiants) {
         strcpy(etudiant->nom, temp);
     }
     
-    printf("Modification terminee.\n");
+    printf("Modification terminée.\n");
 }
 
 // Rechercher par matricule
@@ -265,8 +299,26 @@ int rechercherParMatricule(Etudiant etudiants[], int nbEtudiants, char matricule
 
 // Calculer l'âge
 int calculerAge(Date date_naissance) {
-    // Pour simplifier, on suppose l'année actuelle est 2025
-    return 2025 - date_naissance.annee;
+    Date datejour;
+    time_t t = time(NULL);
+    struct tm now = *localtime(&t);
+    datejour.jour = now.tm_mday;
+    datejour.mois = now.tm_mon + 1;
+    datejour.annee = now.tm_year + 1900;
+    if (datejour.mois > date_naissance.mois) {
+        return datejour.annee - date_naissance.annee;
+    }
+    else if (datejour.mois < date_naissance.mois) {
+        return datejour.annee - date_naissance.annee - 1;
+    }
+    else {
+        if (datejour.jour < date_naissance.jour) {
+            return datejour.annee - date_naissance.annee - 1;
+        }
+        else {
+            return datejour.annee - date_naissance.annee;
+        }
+    }
 }
 
 // Les autres fonctions (à implémenter par le groupe)
