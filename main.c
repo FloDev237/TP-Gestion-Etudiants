@@ -29,7 +29,7 @@ int main() {
     int nbEtudiantsActuels = 0;
 
     int choix;
-    
+
     do {
         afficherMenu();
         printf("\nVotre choix : ");
@@ -97,14 +97,14 @@ int main() {
                     printf("Pas assez d'etudiants pour trier !\n");
                 } else {
                     trierAlphabetique(etudiants, nbEtudiantsActuels);
-                    printf("\n✅ Liste triée. Voici le résultat :\n");
+                    printf("\nListe triee. Voici le résultat :\n");
                     afficherTousEtudiants(etudiants, nbEtudiantsActuels);
                 }
                 break;
                 
             case 6:// RECHERCHE DICHOTOMIQUE
                 if (nbEtudiantsActuels == 0) {
-                    printf("Aucun étudiant enregistre !\n");
+                    printf("Aucun etudiant enregistre !\n");
                 } else {
                     char nom[MAX_NOM];
                     printf("Entrez le nom a rechercher : ");
@@ -123,7 +123,7 @@ int main() {
                 
             case 7:// CALCULER L'ÂGE 
                 if (nbEtudiantsActuels == 0) {
-                    printf("Aucun étudiant enregistre !\n");
+                    printf("Aucun etudiant enregistre !\n");
                 } else {
                     char matricule[MAX_MATRICULE];
                     printf("Entrez le matricule : ");
@@ -133,7 +133,7 @@ int main() {
                     int index = rechercherParMatricule(etudiants, nbEtudiantsActuels, matricule);
                     if (index != -1) {
                         int age = calculerAge(etudiants[index].date_naissance);
-                        printf("\n🎂 L'étudiant %s %s a %d ans\n", 
+                        printf("\n🎂 L'etudiant %s %s a %d ans\n", 
                                etudiants[index].nom, 
                                etudiants[index].prenom, 
                                age);

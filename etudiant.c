@@ -33,7 +33,7 @@ void viderBuffer() {
 void afficherSexe(Sexe s) {
     switch(s) {
         case MASCULIN: printf("Masculin"); break;
-        case FEMININ: printf("Féminin"); break;
+        case FEMININ: printf("Feminin"); break;
     }
 }
 
@@ -49,10 +49,10 @@ void afficherDepartement(Departement d) {
 void afficherFiliere(Filiere f) {
     switch(f) {
         case DATA_SCIENCE: printf("Data Science"); break;
-        case CRYPTOGRAPHIE_SECURITE: printf("Cryptographie et Sécurité"); break;
-        case RESEAU_TELECOM: printf("Réseau et Télécom"); break;
+        case CRYPTOGRAPHIE_SECURITE: printf("Cryptographie et Sécurite"); break;
+        case RESEAU_TELECOM: printf("Reseau et Telecom"); break;
         case ROBOTIQUE: printf("Robotique"); break;
-        case GENIE_LOGICIEL: printf("Génie Logiciel"); break;
+        case GENIE_LOGICIEL: printf("Genie Logiciel"); break;
     }
 }
 
@@ -234,11 +234,11 @@ void afficherEtudiant(Etudiant e) {
                                               e.date_naissance.annee);
     printf("Sexe: ");
     afficherSexe(e.sexe);
-    printf("\nDépartement: ");
+    printf("\nDepartement: ");
     afficherDepartement(e.departement);
-    printf("\nFilière: ");
+    printf("\nFiliere: ");
     afficherFiliere(e.filiere);
-    printf("\nRégion: ");
+    printf("\nRegion: ");
     afficherRegion(e.region);
     printf("\nÂge: %d ans\n", calculerAge(e.date_naissance));
     printf("======================\n");
@@ -266,7 +266,7 @@ void afficherTousEtudiants(Etudiant etudiants[], int nbEtudiants) {
  }
 // Modifier un étudiant (avec pointeurs comme demandé)
    void modifierEtudiant(Etudiant *etudiant) {
-    printf("\n=== MODIFICATION ÉTUDIANT ===\n");
+    printf("\n=== MODIFICATION ETUDIANT ===\n");
     printf("Étudiant: %s %s\n", etudiant->nom, etudiant->prenom);
     
     char temp[100];
@@ -278,7 +278,7 @@ void afficherTousEtudiants(Etudiant etudiants[], int nbEtudiants) {
         strcpy(etudiant->nom, temp);
     }
     
-    printf("Modification terminée.\n");
+    printf("Modification terminee.\n");
 }
 
 // Rechercher par matricule
@@ -303,7 +303,7 @@ void supprimerEtudiant(Etudiant etudiants[], int *nbEtudiants, char matricule[])
     int index = rechercherParMatricule(etudiants, *nbEtudiants, matricule);
     
     if (index == -1) {
-        printf("Etudiant non trouvé!\n");
+        printf("Etudiant non trouve!\n");
         return;
     }
     
