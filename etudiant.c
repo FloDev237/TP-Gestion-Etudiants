@@ -1,6 +1,7 @@
 #include "etudiant.h"
 #include <ctype.h>
 #include <time.h>
+#include <string.h>
 
 // Afficher le menu
 void afficherMenu() {
@@ -271,20 +272,207 @@ void afficherTousEtudiants(Etudiant etudiants[], int nbEtudiants) {
 
  }
 // Modifier un étudiant (avec pointeurs comme demandé)
-   void modifierEtudiant(Etudiant *etudiant) {
+void modifierEtudiant(Etudiant *etudiant) {
     printf("\n=== MODIFICATION ETUDIANT ===\n");
-    printf("Etudiant: %s %s\n", etudiant->nom, etudiant->prenom);
+    printf("Etudiant actuel: %s %s (Matricule: %s)\n", 
+           etudiant->nom, etudiant->prenom, etudiant->matricule);
     
+    int choix;
     char temp[100];
     
-    printf("Nouveau nom (actuel: %s): ", etudiant->nom);
-    fgets(temp, sizeof(temp), stdin);
-    if (strlen(temp) > 1) {
-        temp[strcspn(temp, "\n")] = '\0';
-        strcpy(etudiant->nom, temp);
-    }
+    do {
+        printf("\nQue voulez-vous modifier ?\n");
+        printf("1. Nom (actuel: %s)\n", etudiant->nom);
+        printf("2. Prénom (actuel: %s)\n", etudiant->prenom);
+        printf("3. Matricule (actuel: %s)\n", etudiant->matricule);
+        printf("4. Date de naissance (actuel: %02d/%02d/%04d)\n", 
+               etudiant->date_naissance.jour,
+               etudiant->date_naissance.mois,
+               etudiant->date_naissance.annee);
+        printf("5. Sexe (actuel: ");
+        afficherSexe(etudiant->sexe);
+        printf(")\n");
+        printf("6. Département (actuel: ");
+        afficherDepartement(etudiant->departement);
+        printf(")\n");
+        printf("7. Filière (actuel: ");
+        afficherFiliere(etudiant->filiere);
+        printf(")\n");
+        printf("8. Région (actuel: ");
+        afficherRegion(etudiant->region);
+        printf(")\n");
+        printf("9. TOUT modifier\n");
+        printf("0. Terminer les modifications\n");
+        printf("\nVotre choix: ");
+        scanf("%d", &choix);
+        viderBuffer(); // Utilise ta fonction viderBuffer() au lieu de getchar()
+        
+        switch(choix) {
+            case 1: // Nom (char[])
+                printf("Nouveau nom: ");
+                fgets(temp, sizeof(temp), stdin);
+                temp[strcspn(temp, "\n")] = '\0';
+                if(strlen(temp) > 0) {
+                    strcpy(etudiant->nom, temp);
+                    printf("Nom modifié avec succès.\n");
+                }
+                break;
+                
+            case 2: // Prénom (char[])
+                printf("Nouveau prénom: ");
+                fgets(temp, sizeof(temp), stdin);
+                temp[strcspn(temp, "\n")] = '\0';
+                if(strlen(temp) > 0) {
+                    strcpy(etudiant->prenom, temp);
+                    printf("Prénom modifié avec succès.\n");
+                }
+                break;
+                
+            case 3: // Matricule (char[])
+                printf("Nouveau matricule: ");
+                fgets(temp, sizeof(temp), stdin);
+                temp[strcspn(temp, "\n")] = '\0';
+                if(strlen(temp) > 0) {
+                    strcpy(etudiant->matricule, temp);
+                    printf("Matricule modifié avec succès.\n");
+                }
+                break;
+                
+            case 4: { // Date de naissance (Date struct)
+                Date nouvelleDate;
+                printf("Date de naissance actuelle: %02d/%02d/%04d\n", 
+                       etudiant->date_naissance.jour, 
+                       etudiant->date_naissance.mois, 
+                       etudiant->date_naissance.annee);
+                
+                do {
+                    printf("Nouvelle date de naissance (JJ MM AAAA): ");
+                    if (scanf("%d %d %d", &nouvelleDate.jour, &nouvelleDate.mois, &nouvelleDate.annee) != 3) {
+                        printf("Format invalide!\n");
+                        viderBuffer();
+                        continue;
+                    }
+                    viderBuffer();
+                    
+                    // Validation de la date (comme dans ta fonction LireDate)
+                    if ((nouvelleDate.jour >= 1 && nouvelleDate.jour <= 31) &&
+                        (nouvelleDate.mois == 1 || nouvelleDate.mois == 3 ||
+                         nouvelleDate.mois == 5 || nouvelleDate.mois == 7 ||
+                         nouvelleDate.mois == 8 || nouvelleDate.mois == 10 ||
+                         nouvelleDate.mois == 12)) {
+                        break;
+                    } else if ((nouvelleDate.jour >= 1 && nouvelleDate.jour <= 30) &&
+                             (nouvelleDate.mois == 4 || nouvelleDate.mois == 6 ||
+                              nouvelleDate.mois == 9 || nouvelleDate.mois == 11)) {
+                        break;
+                    } else if ((nouvelleDate.jour >= 1 && nouvelleDate.jour <= 29) &&
+                             (nouvelleDate.mois == 2) &&
+                             ((nouvelleDate.annee % 400 == 0 ||
+                               nouvelleDate.annee % 4 == 0) &&
+                              (nouvelleDate.annee % 100 != 0))) {
+                        break;
+                    } else {
+                        printf("Date invalide. Veuillez réessayer.\n");
+                    }
+                } while(1);
+                
+                etudiant->date_naissance = nouvelleDate;
+                printf("Date de naissance modifiée avec succès.\n");
+                break;
+            }
+                
+            case 5: // Sexe (ENUM - CORRECTION ICI)
+                printf("Sexe actuel: ");
+                afficherSexe(etudiant->sexe);
+                printf("\n");
+                etudiant->sexe = saisirSexe(); // Utilise ta fonction existante
+                printf("Sexe modifié avec succès.\n");
+                break;
+                
+            case 6: // Département (ENUM)
+                printf("Département actuel: ");
+                afficherDepartement(etudiant->departement);
+                printf("\n");
+                etudiant->departement = saisirDepartement(); // Utilise ta fonction
+                printf("Département modifié avec succès.\n");
+                break;
+                
+            case 7: // Filière (ENUM)
+                printf("Filière actuelle: ");
+                afficherFiliere(etudiant->filiere);
+                printf("\n");
+                etudiant->filiere = saisirFiliere(); // Utilise ta fonction
+                printf("Filière modifiée avec succès.\n");
+                break;
+                
+            case 8: // Région (ENUM)
+                printf("Région actuelle: ");
+                afficherRegion(etudiant->region);
+                printf("\n");
+                etudiant->region = saisirRegion(); // Utilise ta fonction
+                printf("Région modifiée avec succès.\n");
+                break;
+                
+            case 9: // TOUT modifier
+                printf("\n=== MODIFICATION COMPLETE ===\n");
+                
+                // Matricule
+                printf("Matricule: ");
+                scanf("%s", etudiant->matricule);
+                viderBuffer();
+                
+                // Nom
+                printf("Nom: ");
+                fgets(etudiant->nom, MAX_NOM, stdin);
+                etudiant->nom[strcspn(etudiant->nom, "\n")] = '\0';
+                
+                // Prénom
+                printf("Prenom: ");
+                fgets(etudiant->prenom, MAX_PRENOM, stdin);
+                etudiant->prenom[strcspn(etudiant->prenom, "\n")] = '\0';
+                
+                // Date de naissance
+                printf("Date de naissance (JJ MM AAAA): ");
+                scanf("%d %d %d", &etudiant->date_naissance.jour, 
+                                  &etudiant->date_naissance.mois,
+                                  &etudiant->date_naissance.annee);
+                viderBuffer();
+                
+                // Sexe
+                etudiant->sexe = saisirSexe();
+                
+                // Département
+                etudiant->departement = saisirDepartement();
+                
+                // Filière
+                etudiant->filiere = saisirFiliere();
+                
+                // Région
+                etudiant->region = saisirRegion();
+                
+                printf("\nToutes les informations ont été modifiées.\n");
+                break;
+                
+            case 0: // Terminer
+                printf("\nModifications terminées.\n");
+                break;
+                
+            default:
+                printf("Choix invalide. Veuillez réessayer.\n");
+                break;
+        }
+        
+        // Afficher les nouvelles informations après chaque modification
+        if(choix >= 1 && choix <= 8 && choix != 0) {
+            printf("\nNouvel état de l'étudiant:\n");
+            printf("Nom: %s\n", etudiant->nom);
+            printf("Prénom: %s\n", etudiant->prenom);
+            printf("Matricule: %s\n", etudiant->matricule);
+        }
+        
+    } while(choix != 0);
     
-    printf("Modification terminée.\n");
+    printf("\n=== MODIFICATION TERMINEE ===\n");
 }
 
 // Rechercher par matricule

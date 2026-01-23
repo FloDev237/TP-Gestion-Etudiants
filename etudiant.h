@@ -6,7 +6,7 @@
 #include <string.h>
 
 // Définitions des constantes
-#define MAX_ETUDIANTS 100
+#define MAX_ETUDIANTS 1000
 #define MAX_NOM 50
 #define MAX_PRENOM 50
 #define MAX_MATRICULE 15
