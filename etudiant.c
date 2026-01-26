@@ -25,7 +25,7 @@ void afficherMenu() {
 // Fonction pour vider le buffer d'entrée
 void viderBuffer() {
     int c;
-    while ((c = getchar()) != '\n' && c != EOF);
+    while ((c =  getchar()) != '\n' && c != EOF);
 }
 
 
@@ -512,8 +512,48 @@ int calculerAge(Date date_naissance) {
 // Les autres fonctions (à implémenter par le groupe)
 void supprimerEtudiant(Etudiant etudiants[], int *nbEtudiants, char matricule[]) {
     
-    printf("Fonction supprimerEtudiant - A implementer\n");
+   
+    if (*nbEtudiants == 0) {
+        printf("Aucun étudiant enregistré !\n");
+        return;
+    }
+    
+    int index = rechercherParMatricule(etudiants, *nbEtudiants, matricule);
+    
+    if (index == -1) {
+        printf("Aucun étudiant avec le matricule %s\n", matricule);
+        return;
+    }
+    
+    // Afficher un aperçu
+    printf("\nÉtudiant trouvé: %s %s [%s]\n",
+           etudiants[index].nom,
+           etudiants[index].prenom,
+           etudiants[index].matricule);
+    
+    // Demander confirmation simple
+    printf("Confirmer la suppression ? (O/N): ");
+    char confirmation;
+    scanf(" %c", &confirmation);
+    viderBuffer();
+    
+    confirmation = toupper(confirmation);
+    
+    if (confirmation != 'O') {
+        printf("Suppression annulée.\n");
+        return;
+    }
+    
+    // Suppression
+    for (int i = index; i < *nbEtudiants - 1; i++) {
+        etudiants[i] = etudiants[i + 1];
+    }
+    
+    (*nbEtudiants)--;
+    printf("Étudiant supprimé avec succès !\n");
+    printf("Il reste %d étudiant(s) dans la liste.\n", *nbEtudiants);
 }
+
 
 void trierAlphabetique(Etudiant etudiants[], int nbEtudiants) {
    
